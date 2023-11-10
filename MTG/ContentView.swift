@@ -80,12 +80,23 @@ struct SearchBar: View {
 struct ContentView: View {
     @State private var mtgCards: [MTGCard] = []
     @State private var searchText: String = ""
+    @State private var isAscendingOrder: Bool = true
 
-    var filteredCards: [MTGCard] {
+    var filteredAndSortedCards: [MTGCard] {
+        let filteredCards: [MTGCard]
         if searchText.isEmpty {
-            return mtgCards
+            filteredCards = mtgCards
         } else {
-            return mtgCards.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            filteredCards = mtgCards.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
+
+        return filteredCards.sorted { card1, card2 in
+            // Adjust the sorting condition based on your needs
+            if isAscendingOrder {
+                return card1.name < card2.name
+            } else {
+                return card1.name > card2.name
+            }
         }
     }
 
@@ -97,7 +108,7 @@ struct ContentView: View {
 
                 ScrollView {
                     LazyVGrid(columns: Array(repeating: GridItem(), count: 3), spacing: 16) {
-                        ForEach(filteredCards) { card in
+                        ForEach(filteredAndSortedCards) { card in
                             NavigationLink(destination: MTGCardView(card: card)) {
                                 VStack {
                                     CardImageView(imageURL: card.image_uris?.large)
@@ -109,8 +120,6 @@ struct ContentView: View {
                                         .padding(.horizontal, 8)
                                 }
                                 .padding()
-                                .background(Color.secondary.opacity(0.2))
-                                .cornerRadius(10)
                             }
                         }
                     }
@@ -130,6 +139,14 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("MTG Cards")
+            .navigationBarItems(trailing:
+                Button(action: {
+                    // Toggle sorting order
+                    isAscendingOrder.toggle()
+                }) {
+                    Image(systemName: isAscendingOrder ? "arrow.down.circle" : "arrow.up.circle")
+                }
+            )
         }
     }
 
