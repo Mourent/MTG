@@ -1,12 +1,11 @@
 import SwiftUI
 
-struct MTGCardView: View {
-    var card: MTGCard
-    
+struct CardImageView: View {
+    var imageURL: String?
+
     var body: some View {
-        VStack {
-            // Tampilkan gambar kartu
-            AsyncImage(url: URL(string: card.image_uris?.large ?? "")) { phase in
+        if let imageURL = imageURL {
+            AsyncImage(url: URL(string: imageURL)) { phase in
                 switch phase {
                 case .success(let image):
                     image
@@ -23,86 +22,103 @@ struct MTGCardView: View {
                     ProgressView()
                 }
             }
-            
-            // Tampilkan nama kartu
+        } else {
+            Image(systemName: "photo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.gray)
+        }
+    }
+}
+
+struct MTGCardView: View {
+    var card: MTGCard
+    
+    var body: some View {
+        VStack {
+            CardImageView(imageURL: card.image_uris?.large)
+                .padding()
+
             Text(card.name)
                 .font(.title)
                 .padding()
-            
-            // Tampilkan jenis kartu dan teks orakel
+
             VStack(alignment: .leading) {
                 Text("Type: \(card.type_line)")
                 Text("Oracle Text: \(card.oracle_text)")
             }
             .padding()
-            
-            VStack(alignment: .leading) {
-                Text("Legalities:")
-                    .font(.headline)
-                Text("Standard: \(card.legalities.standard)")
-                Text("Future: \(card.legalities.future)")
-                Text("Historic: \(card.legalities.historic)")
-                Text("gladiator: \(card.legalities.gladiator)")
-                Text("pioneer: \(card.legalities.pioneer)")
-                Text("explorer: \(card.legalities.explorer)")
-                Text("modern: \(card.legalities.modern)")
-                Text("legacy: \(card.legalities.legacy)")
-                Text("Historic: \(card.legalities.historic)")
-                Text("Historic: \(card.legalities.historic)")
-                Text("Historic: \(card.legalities.historic)")
-                Text("Historic: \(card.legalities.historic)")
-                Text("Historic: \(card.legalities.historic)")
+        }
+        .navigationBarTitle(Text(card.name), displayMode: .inline)
+    }
+}
+
+struct SearchBar: View {
+    @Binding var searchText: String
+
+    var body: some View {
+        HStack {
+            TextField("Search...", text: $searchText)
+                .padding(8)
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
+                .padding(.horizontal, 10)
+
+            Button(action: {
+                searchText = ""
+            }) {
+                Image(systemName: "xmark.circle.fill")
+                    .foregroundColor(.gray)
+                    .padding(8)
             }
-            .padding()
+            .padding(.trailing, 10)
+            .opacity(searchText.isEmpty ? 0 : 1)
         }
     }
 }
 
 struct ContentView: View {
     @State private var mtgCards: [MTGCard] = []
+    @State private var searchText: String = ""
+
+    var filteredCards: [MTGCard] {
+        if searchText.isEmpty {
+            return mtgCards
+        } else {
+            return mtgCards.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
+    }
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(), count: 3), spacing: 16) {
-                    ForEach(mtgCards) { card in
-                        NavigationLink(destination: MTGCardView(card: card)) {
-                            VStack {
-                                // Display the small image of the card
-                                AsyncImage(url: URL(string: card.image_uris?.normal ?? "")) { phase in
-                                    switch phase {
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(height: 100) // Adjust the size as needed
-                                    case .empty:
-                                        // Placeholder image or loading indicator
-                                        Text("Loading...")
-                                    case .failure:
-                                        // Placeholder image or error message
-                                        Text("Failed to load image")
-                                    @unknown default:
-                                        // Placeholder image or generic message
-                                        Text("An unknown error occurred")
-                                    }
-                                }
-                                .padding(8) // Adjust the overall padding
+            VStack {
+                SearchBar(searchText: $searchText)
+                    .padding()
 
-                                // Display the name of the card
-                                Text(card.name)
-                                    .font(.caption)
-                                    .foregroundColor(.primary)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.top, 4)
+                ScrollView {
+                    LazyVGrid(columns: Array(repeating: GridItem(), count: 3), spacing: 16) {
+                        ForEach(filteredCards) { card in
+                            NavigationLink(destination: MTGCardView(card: card)) {
+                                VStack {
+                                    CardImageView(imageURL: card.image_uris?.large)
+                                        .frame(width: 80, height: 120)
+
+                                    Text(card.name)
+                                        .font(.caption)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.horizontal, 8)
+                                }
+                                .padding()
+                                .background(Color.secondary.opacity(0.2))
+                                .cornerRadius(10)
                             }
                         }
                     }
+                    .padding()
                 }
-                .padding(16)
             }
             .onAppear {
-                // Load data dari file JSON
+                // Load data from JSON file
                 if let data = loadJSON() {
                     do {
                         let decoder = JSONDecoder()
@@ -116,8 +132,7 @@ struct ContentView: View {
             .navigationBarTitle("MTG Cards")
         }
     }
-    
-    // Fungsi untuk memuat data dari file JSON
+
     func loadJSON() -> Data? {
         if let path = Bundle.main.path(forResource: "WOT-Scryfall", ofType: "json") {
             do {
