@@ -374,67 +374,102 @@ struct ContentView: View {
     }
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-            VStack {
-                SearchBar(searchText: $searchText)
-                    .padding()
-            HStack {
-                Button(action: {
-                    sortOption = .name
-                    }) {
-                        Text("Sort by Name")
-                            .padding(10)
-                            .foregroundColor(sortOption == .name ? .white : .gray)
-                            .background(sortOption == .name ? Color.black : Color(.systemGray6))
-                            .cornerRadius(8)
-                    }.buttonStyle(PlainButtonStyle())
-                
-                    Button(action: {
-                        sortOption = .collectorNumber
-                    }) {
-                        Text("Sort by Number")
-                            .padding(10)
-                            .foregroundColor(sortOption == .collectorNumber ? .white : .gray)
-                            .background(sortOption == .collectorNumber ? Color.black : Color(.systemGray6))
-                            .cornerRadius(8)
-                    }.buttonStyle(PlainButtonStyle())
-            }
-                
-                    LazyVGrid(columns: Array(repeating: GridItem(), count: 3), spacing: 16) {
-                        ForEach(filteredAndSortedCards) { card in
-                            NavigationLink(destination: MTGCardView(card: card)) {
-                                VStack {
-                                    CardImageView(imageURL: card.image_uris?.normal)
-                                        .aspectRatio(contentMode: .fit)
-
-                                    Text(card.name)
-                                        .font(.caption)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.horizontal, 8)
-                                        .foregroundColor(.black)
+        TabView{
+            NavigationView {
+                ScrollView {
+                    VStack {
+                        SearchBar(searchText: $searchText)
+                            .padding()
+                        HStack {
+                            Button(action: {
+                                sortOption = .name
+                            }) {
+                                Text("Sort by Name")
+                                    .padding(10)
+                                    .foregroundColor(sortOption == .name ? .white : .gray)
+                                    .background(sortOption == .name ? Color.black : Color(.systemGray6))
+                                    .cornerRadius(8)
+                            }.buttonStyle(PlainButtonStyle())
+                            
+                            Button(action: {
+                                sortOption = .collectorNumber
+                            }) {
+                                Text("Sort by Number")
+                                    .padding(10)
+                                    .foregroundColor(sortOption == .collectorNumber ? .white : .gray)
+                                    .background(sortOption == .collectorNumber ? Color.black : Color(.systemGray6))
+                                    .cornerRadius(8)
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                        
+                        LazyVGrid(columns: Array(repeating: GridItem(), count: 3), spacing: 16) {
+                            ForEach(filteredAndSortedCards) { card in
+                                NavigationLink(destination: MTGCardView(card: card)) {
+                                    VStack {
+                                        CardImageView(imageURL: card.image_uris?.normal)
+                                            .aspectRatio(contentMode: .fit)
+                                        
+                                        Text(card.name)
+                                            .font(.caption)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.horizontal, 8)
+                                            .foregroundColor(.black)
+                                    }
+                                    .padding()
                                 }
-                                .padding()
                             }
                         }
-                    }
-                    .padding()
-                }
-            }
-            .onAppear {
-                // Load data from JSON file
-                if let data = loadJSON() {
-                    do {
-                        let decoder = JSONDecoder()
-                        let cards = try decoder.decode(MTGCardList.self, from: data)
-                        mtgCards = cards.data
-                    } catch {
-                        print("Error decoding JSON: \(error)")
+                        .padding()
                     }
                 }
+                .onAppear {
+                    // Load data from JSON file
+                    if let data = loadJSON() {
+                        do {
+                            let decoder = JSONDecoder()
+                            let cards = try decoder.decode(MTGCardList.self, from: data)
+                            mtgCards = cards.data
+                        } catch {
+                            print("Error decoding JSON: \(error)")
+                        }
+                    }
+                }
+                .navigationTitle("MTG Cards")
             }
-            .navigationBarTitle("MTG Cards")
+            .tabItem {
+                Image(systemName: "house")
+                Text("Home")
+            }
+            .tag(0)
+            .toolbarBackground(.white, for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
+            
+            Text("Hello World!")
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Search")
+                }
+                .tag(1)
+            Text("Hello World!")
+                .tabItem {
+                    Image(systemName: "folder")
+                    Text("Collection")
+                }
+                .tag(2)
+            Text("Hello World!")
+                .tabItem {
+                    Image(systemName: "lanyardcard")
+                    Text("Decks")
+                }
+                .tag(3)
+            Text("Hello World!")
+                .tabItem {
+                    Image(systemName: "camera")
+                    Text("Scan")
+                }
+                .tag(4)
         }
+        .accentColor(.black)
     }
 
     func loadJSON() -> Data? {
@@ -449,6 +484,8 @@ struct ContentView: View {
         return nil
     }
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
