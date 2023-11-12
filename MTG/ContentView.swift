@@ -36,7 +36,7 @@ struct MTGCardView: View {
     
     var body: some View {
         VStack {
-            CardImageView(imageURL: card.image_uris?.large)
+            CardImageView(imageURL: card.image_uris?.normal)
                 .padding()
 
             Text(card.name)
@@ -80,7 +80,12 @@ struct SearchBar: View {
 struct ContentView: View {
     @State private var mtgCards: [MTGCard] = []
     @State private var searchText: String = ""
-    @State private var isAscendingOrder: Bool = true
+    @State private var sortOption: SortOption = .name // Default sorting by name
+
+    enum SortOption {
+        case name
+        case collectorNumber
+    }
 
     var filteredAndSortedCards: [MTGCard] {
         let filteredCards: [MTGCard]
@@ -91,33 +96,55 @@ struct ContentView: View {
         }
 
         return filteredCards.sorted { card1, card2 in
-            // Adjust the sorting condition based on your needs
-            if isAscendingOrder {
+            switch sortOption {
+            case .name:
                 return card1.name < card2.name
-            } else {
-                return card1.name > card2.name
+            case .collectorNumber:
+                return card1.collector_number < card2.collector_number
             }
         }
     }
 
     var body: some View {
         NavigationView {
+            ScrollView {
             VStack {
                 SearchBar(searchText: $searchText)
                     .padding()
-
-                ScrollView {
+            HStack {
+                Button(action: {
+                    sortOption = .name
+                    }) {
+                        Text("Sort by Name")
+                            .padding(10)
+                            .foregroundColor(sortOption == .name ? .white : .gray)
+                            .background(sortOption == .name ? Color.black : Color(.systemGray6))
+                            .cornerRadius(8)
+                    }.buttonStyle(PlainButtonStyle())
+                
+                    Button(action: {
+                        sortOption = .collectorNumber
+                    }) {
+                        Text("Sort by Number")
+                            .padding(10)
+                            .foregroundColor(sortOption == .collectorNumber ? .white : .gray)
+                            .background(sortOption == .collectorNumber ? Color.black : Color(.systemGray6))
+                            .cornerRadius(8)
+                    }.buttonStyle(PlainButtonStyle())
+            }
+                
                     LazyVGrid(columns: Array(repeating: GridItem(), count: 3), spacing: 16) {
                         ForEach(filteredAndSortedCards) { card in
                             NavigationLink(destination: MTGCardView(card: card)) {
                                 VStack {
-                                    CardImageView(imageURL: card.image_uris?.large)
-                                        .frame(width: 80, height: 120)
+                                    CardImageView(imageURL: card.image_uris?.normal)
+                                        .aspectRatio(contentMode: .fit)
 
                                     Text(card.name)
                                         .font(.caption)
                                         .multilineTextAlignment(.center)
                                         .padding(.horizontal, 8)
+                                        .foregroundColor(.black)
                                 }
                                 .padding()
                             }
@@ -139,14 +166,6 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("MTG Cards")
-            .navigationBarItems(trailing:
-                Button(action: {
-                    // Toggle sorting order
-                    isAscendingOrder.toggle()
-                }) {
-                    Image(systemName: isAscendingOrder ? "arrow.down.circle" : "arrow.up.circle")
-                }
-            )
         }
     }
 
