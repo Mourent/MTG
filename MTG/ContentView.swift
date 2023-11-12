@@ -32,24 +32,64 @@ struct CardImageView: View {
 }
 
 struct MTGCardView: View {
+    @State private var pencet:Bool = false
     var card: MTGCard
     
     var body: some View {
         VStack {
             CardImageView(imageURL: card.image_uris?.normal)
-                .padding()
+                .scaledToFill()
+                .frame(width: .infinity, height: 300, alignment: .top)
+                .padding(.top, -80)
+                .clipped() 
+                .onTapGesture {
+                    pencet.toggle()
+                }
 
             Text(card.name)
                 .font(.title)
-                .padding()
-
+                .fontWeight(.bold)
+                
+            Text(card.type_line)
+                .fontWeight(.bold)
+            
             VStack(alignment: .leading) {
-                Text("Type: \(card.type_line)")
-                Text("Oracle Text: \(card.oracle_text)")
+                Text(card.oracle_text)
+                    .padding(10)
             }
+            .background(Color(.systemGray6))
+            .cornerRadius(10)
+            .shadow(radius: 2)
             .padding()
+            
+            HStack {
+                Button(action: {
+                    
+                    }) {
+                        Text("Versions")
+                            .padding(10)
+                            .frame(width: 120)
+                            .foregroundColor(.gray)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
+                    }.buttonStyle(PlainButtonStyle())
+                
+                    Button(action: {
+                        
+                    }) {
+                        Text("Ruling")
+                            .padding(10)
+                            .frame(width: 120)
+                            .foregroundColor(.gray)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
+                    }.buttonStyle(PlainButtonStyle())
+            }
+            
         }
-        .navigationBarTitle(Text(card.name), displayMode: .inline)
+        .popover(isPresented: $pencet) {
+            CardImageView(imageURL: card.image_uris?.large)
+        }
     }
 }
 
