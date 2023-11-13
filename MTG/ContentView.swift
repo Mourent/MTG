@@ -33,8 +33,8 @@ struct CardImageView: View {
 
 struct MTGCardView: View {
     @State private var pencet:Bool = false
-    @State private var rulingInfo:Bool = true
-    @State private var version:Bool = false
+    @State private var rulingInfo:Bool = false
+    @State private var version:Bool = true
     var card: MTGCard
     
     var body: some View {
@@ -65,7 +65,6 @@ struct MTGCardView: View {
                     }
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
-                    .shadow(radius: 2)
                     .padding()
                     
                     HStack {
@@ -96,9 +95,45 @@ struct MTGCardView: View {
                     CardImageView(imageURL: card.image_uris?.large)
                 }
                 
+                if version == true{
+                    HStack{
+                        Text("PRICES FROM")
+                            .padding()
+                            .foregroundColor(.red)
+                            .fontWeight(.heavy)
+                        
+                        Image(systemName: "house")
+                        Image(systemName: "house")
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    VStack{
+                        Text(card.set_name)
+                            .font(.system(size: 21))
+                            .padding(8)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(.red)
+                    
+                    HStack{
+                        CardImageView(imageURL: card.image_uris?.small)
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                    }
+                    .frame(width: 360)
+                    .padding([.top, .bottom])
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                }
+                
                 if rulingInfo == true{
-                    Text("LEGALITIES")
-                        .fontWeight(.heavy)
+                    HStack{
+                        Text("LEGALITIES")
+                            .padding()
+                            .foregroundColor(.red)
+                            .fontWeight(.heavy)
+                    }
                     HStack{
                         VStack(alignment: .leading, spacing: 10) {
                             HStack{
