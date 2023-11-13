@@ -320,7 +320,6 @@ struct MTGCardView: View {
     }
 }
 
-
 struct SearchBar: View {
     @Binding var searchText: String
 
@@ -331,16 +330,21 @@ struct SearchBar: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
+                .overlay(
+                    HStack {
+                        Spacer()
 
-            Button(action: {
-                searchText = ""
-            }) {
-                Image(systemName: "xmark.circle.fill")
-                    .foregroundColor(.gray)
-                    .padding(8)
-            }
-            .padding(.trailing, 10)
-            .opacity(searchText.isEmpty ? 0 : 1)
+                        Button(action: {
+                            searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(.gray)
+                                .padding(8)
+                        }
+                    }
+                        .padding(.trailing, 15)
+                    .opacity(searchText.isEmpty ? 0 : 1)
+                )
         }
     }
 }
@@ -386,6 +390,7 @@ struct ContentView: View {
                             }) {
                                 Text("Sort by Name")
                                     .padding(10)
+                                    .frame(width: 165)
                                     .foregroundColor(sortOption == .name ? .white : .gray)
                                     .background(sortOption == .name ? Color.black : Color(.systemGray6))
                                     .cornerRadius(8)
@@ -396,6 +401,7 @@ struct ContentView: View {
                             }) {
                                 Text("Sort by Number")
                                     .padding(10)
+                                    .frame(width: 165)
                                     .foregroundColor(sortOption == .collectorNumber ? .white : .gray)
                                     .background(sortOption == .collectorNumber ? Color.black : Color(.systemGray6))
                                     .cornerRadius(8)
@@ -419,6 +425,8 @@ struct ContentView: View {
                                 }
                             }
                         }
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
                         .padding()
                     }
                 }
