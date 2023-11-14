@@ -16,9 +16,15 @@ struct MTGCard: Codable, Identifiable {
     var legalities: Legalities
     var collector_number:String
     var set_name:String
-
+    var set:String
+    var prices: Price
     // Define other properties as needed based on your JSON structure
 
+    struct Price:Codable {
+        var usd:String
+        var usd_foil:String
+    }
+    
     struct ImageURIs: Codable {
         var small: String?
         var normal: String?

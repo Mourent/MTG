@@ -102,13 +102,14 @@ struct MTGCardView: View {
                             .foregroundColor(.red)
                             .fontWeight(.heavy)
                         
-                        Image(systemName: "house")
-                        Image(systemName: "house")
+                        Image(systemName: "storefront")
                     }.frame(maxWidth: .infinity, alignment: .leading)
                     
-                    VStack{
-                        Text(card.set_name)
-                            .font(.system(size: 21))
+                    HStack{
+                        var setUpper = card.set.uppercased()
+                        
+                        Text("\(card.set_name) (\(setUpper))")
+                            .font(.system(size: 18))
                             .padding(8)
                             .fontWeight(.heavy)
                             .foregroundColor(.white)
@@ -116,10 +117,39 @@ struct MTGCardView: View {
                     .frame(maxWidth: .infinity)
                     .background(.red)
                     
-                    HStack{
+                    HStack(spacing: 3){
                         CardImageView(imageURL: card.image_uris?.small)
                             .scaledToFit()
                             .frame(width: 100, height: 100)
+                        
+                        VStack(alignment: .trailing){
+                            Text("RETAIL")
+                                .fontWeight(.heavy)
+                                .foregroundColor(.green)
+                            Text("BUYLIST")
+                                .fontWeight(.heavy)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(.top, 25)
+                        
+                        Spacer().frame(width: 25)
+                        
+                        VStack{
+                            Text("Normal")
+                                .fontWeight(.heavy)
+                            Text("$\(card.prices.usd)")
+                            Text("$0.75")
+                        }
+                        
+                        Spacer().frame(width: 25)
+                        
+                        VStack{
+                            Text("Foil")
+                                .fontWeight(.heavy)
+                                .foregroundColor(.yellow)
+                            Text("$\(card.prices.usd_foil)")
+                            Text("$2.50")
+                        }
                     }
                     .frame(width: 360)
                     .padding([.top, .bottom])
