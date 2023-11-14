@@ -50,22 +50,26 @@ struct MTGCardView: View {
                             .onTapGesture {
                                 pencet.toggle()
                             }
+                        
+                        Text(card.name)
+                            .font(.title)
+                            .fontWeight(.bold)
+                        
+                        Text(card.type_line)
+                            .fontWeight(.bold)
+                        
+                        VStack(alignment: .leading) {
+                            Text(card.oracle_text)
+                                .padding(10)
+                        }
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                        .padding()
                     }
-                    
-                    Text(card.name)
-                        .font(.title)
-                        .fontWeight(.bold)
-                    
-                    Text(card.type_line)
-                        .fontWeight(.bold)
-                    
-                    VStack(alignment: .leading) {
-                        Text(card.oracle_text)
-                            .padding(10)
-                    }
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(.white)
+                    .clipShape(RoundedCorner(radius: 15, corners: [.bottomLeft, .bottomRight]))
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
                     
                     HStack {
                         Button(action: {
@@ -75,8 +79,12 @@ struct MTGCardView: View {
                                 .padding(10)
                                 .frame(width: 120)
                                 .foregroundColor(version ==  true ? .white : .gray)
-                                .background(version ==  true ? .red : Color(.systemGray6))
-                                .cornerRadius(8)
+                                .background(version ==  true ? .red : .clear)
+                                .cornerRadius(20)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(version ? Color.red : Color.gray, lineWidth: 1)
+                                )
                         }.buttonStyle(PlainButtonStyle())
                         
                         Button(action: {
@@ -86,10 +94,15 @@ struct MTGCardView: View {
                                 .padding(10)
                                 .frame(width: 120)
                                 .foregroundColor(rulingInfo ==  true ? .white : .gray)
-                                .background(rulingInfo ==  true ? .red : Color(.systemGray6))
-                                .cornerRadius(8)
+                                .background(rulingInfo ==  true ? .red : .clear)
+                                .cornerRadius(20)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(rulingInfo ? Color.red : Color.gray, lineWidth: 1)
+                                )
                         }.buttonStyle(PlainButtonStyle())
                     }
+                    .padding(.top)
                 }
                 .popover(isPresented: $pencet) {
                     CardImageView(imageURL: card.image_uris?.large)
@@ -106,7 +119,7 @@ struct MTGCardView: View {
                     }.frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack{
-                        var setUpper = card.set.uppercased()
+                        let setUpper = card.set.uppercased()
                         
                         Text("\(card.set_name) (\(setUpper))")
                             .font(.system(size: 18))
@@ -382,6 +395,21 @@ struct MTGCardView: View {
     func versionInfo() {
         version = true
         rulingInfo = false
+    }
+}
+
+struct RoundedCorner: Shape {
+    var radius: CGFloat
+    var corners: UIRectCorner
+
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+
+        let cornerRadii = CGSize(width: radius, height: radius)
+        let roundedRect = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: cornerRadii)
+
+        path.addPath(Path(roundedRect.cgPath))
+        return path
     }
 }
 
