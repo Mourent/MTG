@@ -465,7 +465,9 @@ struct ContentView: View {
             case .name:
                 return card1.name < card2.name
             case .collectorNumber:
-                return card1.collector_number < card2.collector_number
+                var number1 = Int(card1.collector_number) ?? 0
+                var number2 = Int(card2.collector_number) ?? 0
+                return number1<number2
             }
         }
     }
