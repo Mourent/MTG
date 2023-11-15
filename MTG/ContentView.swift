@@ -35,7 +35,20 @@ struct MTGCardView: View {
     @State private var pencet:Bool = false
     @State private var rulingInfo:Bool = false
     @State private var version:Bool = true
+    
     var card: MTGCard
+    
+    var manaArray: [String] {
+        var array: [String] = []
+        let manaCostCharacters = Array(card.mana_cost)
+        
+        for index in stride(from: 0, to: manaCostCharacters.count, by: 3) {
+            let endIndex = min(index + 3, manaCostCharacters.count)
+            let chunk = String(manaCostCharacters[index..<endIndex])
+            array.append(chunk)
+        }
+        return array
+    }
     
     var body: some View {
         NavigationView{
@@ -51,12 +64,86 @@ struct MTGCardView: View {
                                 pencet.toggle()
                             }
                         
-                        Text(card.name)
-                            .font(.title)
-                            .fontWeight(.bold)
-                        
-                        Text(card.type_line)
-                            .fontWeight(.bold)
+                        HStack{
+                            let manaCost = card.mana_cost
+                            
+                            VStack(alignment: .leading){
+                                Text(card.name)
+                                    .font(.system(size: 23))
+                                    .fontWeight(.bold)
+                                
+                                Text(card.type_line)
+                                    .fontWeight(.bold)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.bottom, -15)
+                            
+                            HStack{
+                                ForEach(manaArray, id: \.self) { cek in
+                                    if cek == "{1}" {
+                                        Image("1")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{2}" {
+                                        Image("2")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{3}" {
+                                        Image("3")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{4}" {
+                                        Image("4")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{7}" {
+                                        Image("7")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{B}" {
+                                        Image("B")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{G}" {
+                                        Image("G")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{R}" {
+                                        Image("R")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{U}" {
+                                        Image("U")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                    else if cek == "{W}" {
+                                        Image("W")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .shadow(radius: 4)
+                                    }
+                                }
+                            }
+                            .padding(.trailing, 25)
+                        }
                         
                         VStack(alignment: .leading) {
                             Text(card.oracle_text)
@@ -465,8 +552,8 @@ struct ContentView: View {
             case .name:
                 return card1.name < card2.name
             case .collectorNumber:
-                var number1 = Int(card1.collector_number) ?? 0
-                var number2 = Int(card2.collector_number) ?? 0
+                let number1 = Int(card1.collector_number) ?? 0
+                let number2 = Int(card2.collector_number) ?? 0
                 return number1<number2
             }
         }

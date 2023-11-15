@@ -18,6 +18,7 @@ struct MTGCard: Codable, Identifiable {
     var set_name:String
     var set:String
     var prices: Price
+    var mana_cost: String
     // Define other properties as needed based on your JSON structure
 
     struct Price:Codable {
