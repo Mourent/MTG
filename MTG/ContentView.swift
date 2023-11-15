@@ -60,6 +60,7 @@ struct MTGCardView: View {
                             .frame(width: .infinity, height: 300, alignment: .top)
                             .padding(.top, -80)
                             .clipped()
+                            .contentShape(Rectangle())
                             .onTapGesture {
                                 pencet.toggle()
                             }
