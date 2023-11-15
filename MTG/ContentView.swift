@@ -65,17 +65,20 @@ struct MTGCardView: View {
                             }
                         
                         HStack{
-                            let manaCost = card.mana_cost
-                            
-                            VStack(alignment: .leading){
-                                Text(card.name)
-                                    .font(.system(size: 23))
-                                    .fontWeight(.bold)
-                                
-                                Text(card.type_line)
-                                    .fontWeight(.bold)
+                            VStack{
+                                VStack{
+                                    Text(card.name)
+                                        .font(.system(size: 23))
+                                        .fontWeight(.bold)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                VStack{
+                                    Text(card.type_line)
+                                        .fontWeight(.bold)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            .frame(maxWidth: .infinity)
+                            .padding(.leading, 25)
                             .padding(.bottom, -15)
                             
                             HStack{
