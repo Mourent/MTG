@@ -599,15 +599,21 @@ struct ContentView: View {
                                 NavigationLink(destination: MTGCardView(card: card)) {
                                     VStack {
                                         CardImageView(imageURL: card.image_uris?.normal)
-                                            .aspectRatio(contentMode: .fit)
-                                        
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 100, height:150)
+                                            .clipped()
+                                            
                                         Text(card.name)
                                             .font(.caption)
                                             .multilineTextAlignment(.center)
+                                            .lineLimit(nil)
                                             .padding(.horizontal, 8)
                                             .foregroundColor(.black)
+                                            .frame(height:50)
                                     }
                                     .padding()
+                                    .frame(height: 200)
+                                    .padding(.top, 10)
                                 }
                             }
                         }
