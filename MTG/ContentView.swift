@@ -168,7 +168,7 @@ struct MTGCardView: View {
                         
                         HStack {
                             Button(action: {
-                                showPreviousCard()
+                                
                             }) {
                                 Image(systemName: "arrow.left")
                             }
@@ -202,7 +202,7 @@ struct MTGCardView: View {
                                     )
                             }.buttonStyle(PlainButtonStyle())
                             Button(action: {
-                                showNextCard()
+                                
                             }) {
                                 Image(systemName: "arrow.right")
                             }
@@ -547,14 +547,6 @@ struct MTGCardView: View {
     func versionInfo() {
         version = true
         rulingInfo = false
-    }
-    func showNextCard() {
-        selectedCardIndex = (selectedCardIndex + 1) % cards.count
-    }
-
-    // Function to display the previous card
-    func showPreviousCard() {
-        selectedCardIndex = (selectedCardIndex - 1 + cards.count) % cards.count
     }
 }
 
