@@ -53,431 +53,479 @@ struct MTGCardView: View {
     var body: some View {
         NavigationView{
             ScrollView{
-                VStack {
-                    VStack{
-                        CardImageView(imageURL: card.image_uris?.normal)
-                            .scaledToFill()
-                            .frame(width: .infinity, height: 300, alignment: .top)
-                            .padding(.top, -80)
-                            .clipped()
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                pencet.toggle()
-                            }
-                        
-                        HStack{
-                            VStack{
-                                VStack{
-                                    Text(card.name)
-                                        .font(.system(size: 23))
-                                        .fontWeight(.bold)
+                ZStack{
+                    VStack {
+                        VStack{
+                            CardImageView(imageURL: card.image_uris?.normal)
+                                .scaledToFill()
+                                .frame(width: .infinity, height: 300, alignment: .top)
+                                .padding(.top, -80)
+                                .clipped()
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    pencet.toggle()
                                 }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                VStack{
-                                    Text(card.type_line)
-                                        .fontWeight(.bold)
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                            .padding(.leading, 25)
-                            .padding(.bottom, -15)
                             
                             HStack{
-                                ForEach(manaArray, id: \.self) { cek in
-                                    if cek == "{1}" {
-                                        Image("1")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
+                                VStack{
+                                    VStack{
+                                        Text(card.name)
+                                            .font(.system(size: 23))
+                                            .fontWeight(.bold)
                                     }
-                                    else if cek == "{2}" {
-                                        Image("2")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    VStack{
+                                        Text(card.type_line)
+                                            .fontWeight(.bold)
                                     }
-                                    else if cek == "{3}" {
-                                        Image("3")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
-                                    }
-                                    else if cek == "{4}" {
-                                        Image("4")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
-                                    }
-                                    else if cek == "{7}" {
-                                        Image("7")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
-                                    }
-                                    else if cek == "{B}" {
-                                        Image("B")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
-                                    }
-                                    else if cek == "{G}" {
-                                        Image("G")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
-                                    }
-                                    else if cek == "{R}" {
-                                        Image("R")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
-                                    }
-                                    else if cek == "{U}" {
-                                        Image("U")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
-                                    }
-                                    else if cek == "{W}" {
-                                        Image("W")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .shadow(radius: 4)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                                .padding(.leading, 25)
+                                .padding(.bottom, -15)
+                                
+                                HStack{
+                                    ForEach(manaArray, id: \.self) { cek in
+                                        if cek == "{1}" {
+                                            Image("1")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{2}" {
+                                            Image("2")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{3}" {
+                                            Image("3")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{4}" {
+                                            Image("4")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{7}" {
+                                            Image("7")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{B}" {
+                                            Image("B")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{G}" {
+                                            Image("G")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{R}" {
+                                            Image("R")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{U}" {
+                                            Image("U")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
+                                        else if cek == "{W}" {
+                                            Image("W")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .shadow(radius: 4)
+                                        }
                                     }
                                 }
+                                .padding(.trailing, 25)
                             }
-                            .padding(.trailing, 25)
+                            
+                            VStack(alignment: .leading) {
+                                Text(card.oracle_text)
+                                    .padding(10)
+                            }
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10)
+                            .padding()
                         }
+                        .frame(maxWidth: .infinity)
+                        .background(.white)
+                        .clipShape(RoundedCorner(radius: 15, corners: [.bottomLeft, .bottomRight]))
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
                         
-                        VStack(alignment: .leading) {
-                            Text(card.oracle_text)
-                                .padding(10)
+                        HStack {
+                            Button(action: {
+                                versionInfo()
+                            }) {
+                                Text("Versions")
+                                    .padding(10)
+                                    .frame(width: 120)
+                                    .foregroundColor(version ==  true ? .white : .gray)
+                                    .background(version ==  true ? .red : .clear)
+                                    .cornerRadius(20)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(version ? Color.red : Color.gray, lineWidth: 1)
+                                    )
+                            }.buttonStyle(PlainButtonStyle())
+                            
+                            Button(action: {
+                                fetchRulingInfo()
+                            }) {
+                                Text("Ruling")
+                                    .padding(10)
+                                    .frame(width: 120)
+                                    .foregroundColor(rulingInfo ==  true ? .white : .gray)
+                                    .background(rulingInfo ==  true ? .red : .clear)
+                                    .cornerRadius(20)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(rulingInfo ? Color.red : Color.gray, lineWidth: 1)
+                                    )
+                            }.buttonStyle(PlainButtonStyle())
                         }
+                        .padding(.top)
+                    }
+                    
+                    if pencet {
+                        Color.black.opacity(0.8)
+                            .edgesIgnoringSafeArea(.all)
+                            .onTapGesture {
+                                // Dismiss the large image popup when tapped
+                                pencet = false
+                            }
+                        
+                        if let largeImageURL = card.image_uris?.large {
+                            // Display a larger image as a popup overlay
+                            AsyncImage(url: URL(string: largeImageURL)) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .padding()
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .cornerRadius(16)
+                                        .padding(20)
+                                case .failure:
+                                    // Handle failure, you can display an error image or message
+                                    Image(systemName: "exclamationmark.triangle")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(.red)
+                                        .padding()
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .cornerRadius(16)
+                                        .padding(20)
+                                case .empty:
+                                    // Placeholder or loading indicator
+                                    ProgressView()
+                                        .padding()
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .cornerRadius(16)
+                                        .padding(20)
+                                @unknown default:
+                                    // Handle unknown state
+                                    ProgressView()
+                                        .padding()
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .cornerRadius(16)
+                                        .padding(20)
+                                }
+                            }
+                        }
+                    }
+                }
+                    
+                    if version == true{
+                        HStack{
+                            Text("PRICES FROM")
+                                .padding()
+                                .foregroundColor(.red)
+                                .fontWeight(.heavy)
+                            
+                            Image(systemName: "storefront")
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        HStack{
+                            let setUpper = card.set.uppercased()
+                            
+                            Text("\(card.set_name) (\(setUpper))")
+                                .font(.system(size: 18))
+                                .padding(8)
+                                .fontWeight(.heavy)
+                                .foregroundColor(.white)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(.red)
+                        
+                        HStack(spacing: 3){
+                            CardImageView(imageURL: card.image_uris?.small)
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                            
+                            VStack(alignment: .trailing){
+                                Text("RETAIL")
+                                    .fontWeight(.heavy)
+                                    .foregroundColor(.green)
+                                Text("BUYLIST")
+                                    .fontWeight(.heavy)
+                                    .foregroundColor(.blue)
+                            }
+                            .padding(.top, 25)
+                            
+                            Spacer().frame(width: 25)
+                            
+                            VStack{
+                                Text("Normal")
+                                    .fontWeight(.heavy)
+                                Text("$\(card.prices.usd)")
+                                Text("$0.75")
+                            }
+                            
+                            Spacer().frame(width: 25)
+                            
+                            VStack{
+                                Text("Foil")
+                                    .fontWeight(.heavy)
+                                    .foregroundColor(.yellow)
+                                Text("$\(card.prices.usd_foil)")
+                                Text("$2.50")
+                            }
+                        }
+                        .frame(width: 360)
+                        .padding([.top, .bottom])
                         .background(Color(.systemGray6))
                         .cornerRadius(10)
-                        .padding()
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(.white)
-                    .clipShape(RoundedCorner(radius: 15, corners: [.bottomLeft, .bottomRight]))
-                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
                     
-                    HStack {
-                        Button(action: {
-                            versionInfo()
-                        }) {
-                            Text("Versions")
-                                .padding(10)
-                                .frame(width: 120)
-                                .foregroundColor(version ==  true ? .white : .gray)
-                                .background(version ==  true ? .red : .clear)
-                                .cornerRadius(20)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(version ? Color.red : Color.gray, lineWidth: 1)
-                                )
-                        }.buttonStyle(PlainButtonStyle())
-                        
-                        Button(action: {
-                            fetchRulingInfo()
-                        }) {
-                            Text("Ruling")
-                                .padding(10)
-                                .frame(width: 120)
-                                .foregroundColor(rulingInfo ==  true ? .white : .gray)
-                                .background(rulingInfo ==  true ? .red : .clear)
-                                .cornerRadius(20)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(rulingInfo ? Color.red : Color.gray, lineWidth: 1)
-                                )
-                        }.buttonStyle(PlainButtonStyle())
-                    }
-                    .padding(.top)
-                }
-                .popover(isPresented: $pencet) {
-                    CardImageView(imageURL: card.image_uris?.large)
-                }
-                
-                if version == true{
-                    HStack{
-                        Text("PRICES FROM")
-                            .padding()
-                            .foregroundColor(.red)
-                            .fontWeight(.heavy)
-                        
-                        Image(systemName: "storefront")
-                    }.frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    HStack{
-                        let setUpper = card.set.uppercased()
-                        
-                        Text("\(card.set_name) (\(setUpper))")
-                            .font(.system(size: 18))
-                            .padding(8)
-                            .fontWeight(.heavy)
-                            .foregroundColor(.white)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .background(.red)
-                    
-                    HStack(spacing: 3){
-                        CardImageView(imageURL: card.image_uris?.small)
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
-                        
-                        VStack(alignment: .trailing){
-                            Text("RETAIL")
+                    if rulingInfo == true{
+                        HStack{
+                            Text("LEGALITIES")
+                                .padding()
+                                .foregroundColor(.red)
                                 .fontWeight(.heavy)
-                                .foregroundColor(.green)
-                            Text("BUYLIST")
-                                .fontWeight(.heavy)
-                                .foregroundColor(.blue)
                         }
-                        .padding(.top, 25)
-                        
-                        Spacer().frame(width: 25)
-                        
-                        VStack{
-                            Text("Normal")
-                                .fontWeight(.heavy)
-                            Text("$\(card.prices.usd)")
-                            Text("$0.75")
-                        }
-                        
-                        Spacer().frame(width: 25)
-                        
-                        VStack{
-                            Text("Foil")
-                                .fontWeight(.heavy)
-                                .foregroundColor(.yellow)
-                            Text("$\(card.prices.usd_foil)")
-                            Text("$2.50")
-                        }
-                    }
-                    .frame(width: 360)
-                    .padding([.top, .bottom])
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                }
-                
-                if rulingInfo == true{
-                    HStack{
-                        Text("LEGALITIES")
-                            .padding()
-                            .foregroundColor(.red)
-                            .fontWeight(.heavy)
-                    }
-                    HStack{
-                        VStack(alignment: .leading, spacing: 10) {
-                            HStack{
-                                Text(card.legalities.standard == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.standard == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.standard == "not_legal" ? .black : Color.white)
-                                Text("Standart")
-                                    .frame(width: 70, alignment: .leading)
+                        HStack{
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack{
+                                    Text(card.legalities.standard == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.standard == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.standard == "not_legal" ? .black : Color.white)
+                                    Text("Standart")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.future == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.future == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.future == "not_legal" ? .black : Color.white)
+                                    Text("Future")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.historic == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.historic == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.historic == "not_legal" ? .black : Color.white)
+                                    Text("Historic")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.gladiator == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.gladiator == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.gladiator == "not_legal" ? .black : Color.white)
+                                    Text("Gladiator")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.pioneer == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.pioneer == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.pioneer == "not_legal" ? .black : Color.white)
+                                    Text("Pioneer")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.modern == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.modern == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.modern == "not_legal" ? .black : Color.white)
+                                    Text("Modern")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.legacy == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.legacy == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.legacy == "not_legal" ? .black : Color.white)
+                                    Text("Legacy")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.pauper == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.pauper == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.pauper == "not_legal" ? .black : Color.white)
+                                    Text("Pauper")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.vintage == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.vintage == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.vintage == "not_legal" ? .black : Color.white)
+                                    Text("Vintage")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.penny == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.penny == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.penny == "not_legal" ? .black : Color.white)
+                                    Text("Penny")
+                                        .frame(width: 70, alignment: .leading)
+                                }
                             }
-                            HStack{
-                                Text(card.legalities.future == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.future == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.future == "not_legal" ? .black : Color.white)
-                                Text("Future")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.historic == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.historic == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.historic == "not_legal" ? .black : Color.white)
-                                Text("Historic")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.gladiator == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.gladiator == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.gladiator == "not_legal" ? .black : Color.white)
-                                Text("Gladiator")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.pioneer == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.pioneer == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.pioneer == "not_legal" ? .black : Color.white)
-                                Text("Pioneer")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.modern == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.modern == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.modern == "not_legal" ? .black : Color.white)
-                                Text("Modern")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.legacy == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.legacy == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.legacy == "not_legal" ? .black : Color.white)
-                                Text("Legacy")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.pauper == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.pauper == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.pauper == "not_legal" ? .black : Color.white)
-                                Text("Pauper")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.vintage == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.vintage == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.vintage == "not_legal" ? .black : Color.white)
-                                Text("Vintage")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.penny == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.penny == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.penny == "not_legal" ? .black : Color.white)
-                                Text("Penny")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                        }
-                        VStack(alignment: .leading, spacing: 10){
-                            HStack{
-                                Text(card.legalities.commander == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.commander == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.commander == "not_legal" ? .black : Color.white)
-                                Text("Commander")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.oathbreaker == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.oathbreaker == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.oathbreaker == "not_legal" ? .black : Color.white)
-                                Text("Oathbreaker")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.brawl == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.brawl == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.brawl == "not_legal" ? .black : Color.white)
-                                Text("Brawl")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.historicbrawl == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.historicbrawl == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.historicbrawl == "not_legal" ? .black : Color.white)
-                                Text("Historic Brawl")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.alchemy == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.alchemy == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.alchemy == "not_legal" ? .black : Color.white)
-                                Text("Alchemy")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.paupercommander == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.paupercommander == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.paupercommander == "not_legal" ? .black : Color.white)
-                                Text("Pauper Cmdr.")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.duel == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.duel == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.duel == "not_legal" ? .black : Color.white)
-                                Text("Duel")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.oldschool == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.oldschool == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.oldschool == "not_legal" ? .black : Color.white)
-                                Text("Old School")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.premodern == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.premodern == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.premodern == "not_legal" ? .black : Color.white)
-                                Text("Pre Modern")
-                                    .frame(width: 70, alignment: .leading)
-                            }
-                            HStack{
-                                Text(card.legalities.predh == "not_legal" ? "Not Legal" : "Legal")
-                                    .frame(width: 75)
-                                    .padding(10)
-                                    .background(card.legalities.predh == "not_legal" ? Color(.systemGray6) : Color.green)
-                                    .cornerRadius(8)
-                                    .foregroundColor(card.legalities.predh == "not_legal" ? .black : Color.white)
-                                Text("Predh")
-                                    .frame(width: 70, alignment: .leading)
+                            VStack(alignment: .leading, spacing: 10){
+                                HStack{
+                                    Text(card.legalities.commander == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.commander == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.commander == "not_legal" ? .black : Color.white)
+                                    Text("Commander")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.oathbreaker == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.oathbreaker == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.oathbreaker == "not_legal" ? .black : Color.white)
+                                    Text("Oathbreaker")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.brawl == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.brawl == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.brawl == "not_legal" ? .black : Color.white)
+                                    Text("Brawl")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.historicbrawl == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.historicbrawl == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.historicbrawl == "not_legal" ? .black : Color.white)
+                                    Text("Historic Brawl")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.alchemy == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.alchemy == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.alchemy == "not_legal" ? .black : Color.white)
+                                    Text("Alchemy")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.paupercommander == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.paupercommander == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.paupercommander == "not_legal" ? .black : Color.white)
+                                    Text("Pauper Cmdr.")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.duel == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.duel == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.duel == "not_legal" ? .black : Color.white)
+                                    Text("Duel")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.oldschool == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.oldschool == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.oldschool == "not_legal" ? .black : Color.white)
+                                    Text("Old School")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.premodern == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.premodern == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.premodern == "not_legal" ? .black : Color.white)
+                                    Text("Pre Modern")
+                                        .frame(width: 70, alignment: .leading)
+                                }
+                                HStack{
+                                    Text(card.legalities.predh == "not_legal" ? "Not Legal" : "Legal")
+                                        .frame(width: 75)
+                                        .padding(10)
+                                        .background(card.legalities.predh == "not_legal" ? Color(.systemGray6) : Color.green)
+                                        .cornerRadius(8)
+                                        .foregroundColor(card.legalities.predh == "not_legal" ? .black : Color.white)
+                                    Text("Predh")
+                                        .frame(width: 70, alignment: .leading)
+                                }
                             }
                         }
                     }
                 }
-            }
-        }.navigationBarTitle("", displayMode: .inline)
-    }
+            }.navigationBarTitle("", displayMode: .inline)
+        }
     
     func fetchRulingInfo() {
         rulingInfo = true
